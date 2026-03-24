@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-app">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div>
+                    <h1>AI Chatbot</h1>
+                    <p>Intent-based ML Assistant</p>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">Status</div>
+                <div class="status-row">
+                    <span class="status-dot"></span>
+                    <span>Backend connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-chat">
+            <div class="chat-header">
+                <h2>AI Chatbot</h2>
+                <p>Ask anything from the trained intents</p>
+            </div>
+
+            <div id="chat-box" class="chat-box">
+                <div class="bot-row">
+                    <div class="avatar">🤖</div>
+                    <div class="bot-message">👋 Hi! I'm your AI chatbot. Ask me anything.</div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input
+                    id="user-input"
+                    type="text"
+                    placeholder="Message AI Chatbot..."
+                    autocomplete="off"
+                />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const inputField = document.getElementById("user-input");
+
+        function scrollToBottom() {
+            chatBox.scrollTo({
+                top: chatBox.scrollHeight,
+                behavior: "smooth"
+            });
+                
+        }
+
+        function appendUserMessage(message) {
+            const row = document.createElement("div");
+            row.className = "user-row";
+
+            const msg = document.createElement("div");
+            msg.className = "user-message";
+            msg.textContent = message;
+
+            row.appendChild(msg);
+            chatBox.appendChild(row);
+            
+            scrollToBottom();
+        }
+
+        function appendBotMessage(message, confidence = null, intent = null) {
+            const row = document.createElement("div");
+            row.className = "bot-row";
+
+            const avatar = document.createElement("div");
+            avatar.className = "avatar";
+            avatar.textContent = "🤖";
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "bot-content";
+
+            const msg = document.createElement("div");
+            msg.className = "bot-message";
+            msg.textContent = message;
+
+            wrapper.appendChild(msg);
+
+            if (confidence !== null || intent !== null) {
+                const meta = document.createElement("div");
+                meta.className = "meta";
+
+                let metaText = "";
+                if (intent) {
+                    metaText += `Intent: ${intent}`;
+                }
+                if (confidence !== null) {
+                    if (metaText) metaText += " • ";
+                    metaText += `Confidence: ${(confidence * 100).toFixed(1)}%`;
+                }
+
+                meta.textContent = metaText;
+                wrapper.appendChild(meta);
+            }
+
+            row.appendChild(avatar);
+            row.appendChild(wrapper);
+            chatBox.appendChild(row);
+            scrollToBottom();
+        }
+
+        function showTyping() {
+            const row = document.createElement("div");
+            row.className = "bot-row";
+            row.id = "typing-row";
+
+            const avatar = document.createElement("div");
+            avatar.className = "avatar";
+            avatar.textContent = "🤖";
+
+            const typing = document.createElement("div");
+            typing.className = "typing-bubble";
+            typing.innerHTML = "<span></span><span></span><span></span>";
+
+            row.appendChild(avatar);
+            row.appendChild(typing);
+            chatBox.appendChild(row);
+            scrollToBottom();
+        }
+
+        function removeTyping() {
+            const typingRow = document.getElementById("typing-row");
+            if (typingRow) typingRow.remove();
+        }
+
+        async function sendMessage() {
+            const message = inputField.value.trim();
+            if (!message) return;
+
+            appendUserMessage(message);
+            inputField.value = "";
+            inputField.focus();
+
+            showTyping();
+
+            setTimeout(async () => {
+                try {
+                    const response = await fetch("/chat", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+
+                    const data = await response.json();
+
+                    removeTyping();
+                    appendBotMessage(
+                        data.response || "Sorry, something went wrong.",
+                        data.confidence ?? null,
+                        data.intent ?? null
+                    );
+                } catch (error) {
+                    removeTyping();
+                    appendBotMessage("Server error. Please try again.");
+                }
+            }, 800);
+        }
+
+        document.getElementById("user-input").addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

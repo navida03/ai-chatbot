@@ -1,0 +1,44 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "Hey there", "Good morning", "Good evening"],
+      "responses": ["Hello!", "Hi there!", "Hey! How can I help you?"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "Goodbye", "See you", "Catch you later"],
+      "responses": ["Goodbye!", "See you later!", "Take care!"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "Thx", "Thanks a lot", "Appreciate it", "Much appreciated", "Thanks bro", "Thank you so much"],
+      "responses": ["You're welcome!", "Anytime!", "No problem!"]
+    },
+    {
+      "tag": "help",
+      "patterns": ["Help me", "I need help", "Can you help me", "Support needed"],
+      "responses": ["Sure, how can I help you?", "Of course, tell me your issue."]
+    },
+    {
+      "tag": "about_bot",
+      "patterns": ["Who are you", "What are you", "Tell me about yourself"],
+      "responses": ["I’m an AI chatbot built using Flask and machine learning.", "I’m a support chatbot trained to answer basic user queries."]
+    },
+    {
+      "tag": "order_status",
+      "patterns": ["Where is my order", "Track my order", "Order status", "My package status"],
+      "responses": ["Please share your order ID so I can help track it.", "You can track your order using your account order history."]
+    },
+    {
+      "tag": "refund",
+      "patterns": ["I want a refund", "Refund policy", "Return my order", "How to get refund"],
+      "responses": ["Refunds are usually processed within 5 to 7 business days.", "Please visit the returns section to start a refund request."]
+    },
+    {
+      "tag": "payment_issue",
+      "patterns": ["Payment failed", "Unable to pay", "Transaction failed", "Payment issue"],
+      "responses": ["Please try again after some time or use another payment method.", "Check if your bank declined the payment."]
+    }
+  ]
+}
