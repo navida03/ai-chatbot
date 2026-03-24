@@ -29,7 +29,7 @@ def chat():
     probabilities = model.predict_proba(X)[0]
     confidence = max(probabilities)
 
-    if confidence < 0.20:
+    if confidence < 0.50:
         return jsonify({
             "response": "I’m not fully sure I understood that. Could you rephrase?",
             "confidence": round(float(confidence), 2)
