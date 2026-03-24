@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import json
 import random
 import pickle
+import os
 
 app = Flask(__name__)
 
@@ -45,4 +46,5 @@ def chat():
     return jsonify({"response": "Sorry, I didn’t understand."})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
