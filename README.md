@@ -1,4 +1,4 @@
-AI Chatbot Platform (Full Stack + API + Persistent Memory)
+AI CHATBOT WEB APPLICATION
 
   A production-ready AI chatbot platform with REST APIs, persistent chat storage, and scalable backend architecture.
 
