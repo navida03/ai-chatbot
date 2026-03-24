@@ -1,118 +1,155 @@
-HYBRID AI CHATBOT WEB APPLICATION
+AI Chatbot Platform (Full Stack + API + Persistent Memory)
 
-A full-stack AI-powered chatbot that combines Machine Learning (Scikit-learn) with OpenAI GPT fallback to deliver intelligent and dynamic responses.
+  A production-ready AI chatbot platform with REST APIs, persistent chat storage, and scalable backend architecture.
 
-LIVE DEMO
+- Live Demo:
+ 🔗 https://ai-chatbot-2qo0.onrender.com
 
-https://ai-chatbot-2qo0.onrender.com
-
-HOW IT WORKS
-
-This chatbot uses a hybrid approach:
-	1.	Intent Classification (ML Model)
-	•	Uses TF-IDF + Scikit-learn model
-	•	Matches user input to predefined intents
-	•	Returns fast, rule-based responses
-	2.	Confidence Check
-	•	If confidence ≥ 40% → return intent response
-	•	If confidence < 40% → fallback to GPT
-	3.	GPT Fallback (OpenAI API)
-	•	Handles unknown or complex queries
-	•	Generates dynamic, human-like responses
-	4.	Chat Storage
-	•	Stores all conversations in SQLite database
-	•	Includes message, response, intent, confidence, timestamp
-
- FEATURES
+- Overview:
  
-	•	 Interactive chatbot UI
-	•	 ML-based intent classification
-	•	 OpenAI GPT fallback for smart responses
-	•	 Confidence scoring system
-	•	 SQLite chat history storage
-	•	 Fast API responses via Flask
-	•	 Deployable on Render / AWS
-	•	 Secure API key handling (env variables recommended)
+  This project is a full-stack AI chatbot system that allows users to interact with an intelligent assistant powered by OpenAI.
+It includes a robust Flask backend, REST APIs, database persistence, and deployment-ready configuration.
 
- TECH STACK
-	•	Backend: Flask (Python)
-	•	Frontend: HTML, CSS, JavaScript
-	•	ML: Scikit-learn, TF-IDF
-	•	Database: SQLite
-	•	AI Integration: OpenAI API
-	•	Deployment: Render / AWS
-	•	Version Control: Git, GitHub
+- Built with a focus on:
 
-  PROJECT STRUCTURE
-  ai-chatbot/
-│── app.py
-│── intents.json
-│── model.pkl
-│── vectorizer.pkl
-│── chat_history.db
-│── templates/
-│   └── index.html
-│── static/
-│   └── style.css
-│── requirements.txt
-│── runtime.txt
+ Clean architecture
+ Real-world backend practices
+ Resume-ready engineering standards
+ 
+ - Key Features:
+ 
+  AI Capabilities
+  Context-based chatbot responses using OpenAI API
+  Dynamic prompt handling
+  Fast response generation
+  
+ - Backend & APIs:
+ 
+  RESTful API design
+  Modular Flask architecture
+  Error handling & validation
+  JSON-based request/response
+  
+ - Data Persistence:
+ - 
+   SQLite database integration
+    Chat history storage
+    Timestamp tracking
+	
+ - Security:
+ - 
+    API key via environment variables
+   No hardcoded secrets
+   Safe config handling
+   
+ - Deployment Ready:
+   
+   Compatible with Render / AWS
+   Environment-based configuration
+   Production-ready structure
+   
+- Tech Stack:
 
-INSTALLATION
+Backend: Flask (Python)
+AI Engine: OpenAI GPT API
+Database: SQLite
+Frontend: HTML, CSS, JavaScript
+API Testing: Postman
+Version Control: Git & GitHub
+Deployment: Render / AWS
 
-. Clone Repository
-https://github.com/navida03/ai-chatbot.git
+- System Architecture:
+- 
+Client (Browser / Postman)
+        ↓
+Flask Backend (app.py)
+        ↓
+OpenAI API  +  SQLite DB
 
-. OPENAI API SETUP
-	1.	Go to: https://platform.openai.com/api-keys
-	2.	CreateD a new API key
-
- Set environment variable (recommended)
-export OPENAI_API_KEY="your_api_key_here"
-
-. RUN THE APP
-python3 app.py
-
-. OPEN BROWSER
-http://127.0.0.1:5000
-
-. API ENDPOINT
-
-POST/chat
-
-
+-  API Documentation:
+   1. Chat Endpoint
+POST /chat
+Request Body
 {
-   "message: "hey"
+  "message": "Hello AI"
+}
+Response
+{
+  "response": "Hello! How can I assist you today?"
+}
+ 2. Health Check (Optional Enhancement)
+GET /
+{
+  "status": "Server is running"
 }
 
-
-Response:
-{
-  "response": "Hello! How can I help you today?"
-}
-
-. Database (SQLite)
-
-Stores user messages and AI responses
-Automatically created on first run
-Table structure:
+ - Database Design:
+ Table: chats
 CREATE TABLE chats (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_message TEXT,
-    bot_response TEXT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    user_message TEXT NOT NULL,
+    bot_response TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+ What it does:
+Stores each conversation
+Enables chat history tracking
+Helps in future AI improvements (memory / analytics)
 
+ - Project Structure:
+ - 
+ai-chatbot/
+│
+├── app.py                  # Main backend logic
+├── templates/
+│   └── index.html          # UI
+├── static/                 # CSS / JS
+├── database.db             # SQLite DB
+├── requirements.txt
+├── .env                    # Environment variables
+└── README.md
 
- Author
+   - Setup Instructions:
+1. Clone Repo
+https://github.com/navida03/ai-chatbot.git
+
+2. Install Dependencies
+pip install -r requirements.txt
+
+ 3. Configure Environment Variables
+Create .env file:
+OPENAI_API_KEY=your_api_key_here
+
+ 4. Run App
+python app.py
+
+-  Testing (Postman): 
+Method: POST
+URL: http://localhost:5000/chat
+Body: JSON
+
+ Deployment Guide
+🔹 Render 
+Push code to GitHub
+Create new Web Service
+Add:
+Build Command: pip install -r requirements.txt
+Start Command: python app.py
+Add env variable:
+
+Chat UI
+Postman API testing
+ view
+ Challenges Solved
+ 403 / Bad Request errors → Fixed API handling
+ API key setup confusion → Moved to env variables
+ Chat saving → Implemented SQLite persistence
+ Deployment confusion → Structured production-ready app
+ 
+Developed a full-stack AI chatbot platform using Flask and OpenAI API with persistent chat storage using SQLite. Designed RESTful APIs, implemented secure environment configurations, and prepared the application for cloud deployment (Render/AWS).
+
+👩‍💻 Author
 Navida Rajbhoj
-GitHub: https://github.com/navida03
-  
-
-
-
-
-
-
 
 
 
