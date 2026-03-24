@@ -79,9 +79,11 @@ http://127.0.0.1:5000
 
 POST/chat
 
+
 {
    "message: "hey"
 }
+
 
 Response:
 {
@@ -89,6 +91,7 @@ Response:
 }
 
 . Database (SQLite)
+
 Stores user messages and AI responses
 Automatically created on first run
 Table structure:
@@ -98,6 +101,7 @@ CREATE TABLE chats (
     bot_response TEXT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
 
  Author
 Navida Rajbhoj
